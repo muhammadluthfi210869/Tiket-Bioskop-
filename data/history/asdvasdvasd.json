@@ -1,0 +1,130 @@
+[
+    {
+        "type": "Makanan",
+        "items": [
+            {
+                "name": {
+                    "id": "F4",
+                    "name": "Popcorn Caramel",
+                    "price": 40000,
+                    "category": "Makanan",
+                    "image": "popcorn_caramel.jpg"
+                },
+                "quantity": 1,
+                "price": 0
+            }
+        ],
+        "total": 0,
+        "status": "Sukses",
+        "transaction_id": "012c092d-3ac3-4833-a5d4-723c354ddff9",
+        "timestamp": "19/03/2025 14:23"
+    },
+    {
+        "type": "Makanan",
+        "items": [
+            {
+                "name": {
+                    "id": "F4",
+                    "name": "Popcorn Caramel",
+                    "price": 40000,
+                    "category": "Makanan",
+                    "image": "popcorn_caramel.jpg"
+                },
+                "quantity": 1,
+                "price": 0
+            }
+        ],
+        "total": -40000,
+        "status": "Sukses",
+        "transaction_id": "4c87de6b-0bd9-42a6-b6e8-01e6e5b49d87",
+        "timestamp": "19/03/2025 14:23"
+    },
+    {
+        "type": "Tiket",
+        "movie_title": "The Batman : Darknight",
+        "total": -70000,
+        "studio": "Regular",
+        "theater": "Theater 1",
+        "cinema": "CGV Grand Indonesia",
+        "seats": "J7",
+        "show_date": "12:00",
+        "show_time": "10:00",
+        "status": "Sukses",
+        "timestamp": "19/03/2025 14:23",
+        "transaction_id": "94897baf-0570-4228-b68d-74ff353bba4f"
+    },
+    {
+        "type": "Top Up",
+        "total": 500000,
+        "previous_balance": 50000,
+        "new_balance": 550000,
+        "payment_method": "Cash",
+        "status": "Sukses",
+        "timestamp": "19/03/2025 14:23",
+        "transaction_id": "19ec6066-248f-4273-9d7c-9328aaf19280"
+    },
+    {
+        "type": "Tiket",
+        "movie_title": "Spider-Man: No Way Home",
+        "total": 0,
+        "studio": "Regular",
+        "theater": "Theater 1",
+        "cinema": "CGV Paris Van Java",
+        "seats": "H5, H6",
+        "show_date": "13:00",
+        "show_time": "10:00",
+        "status": "Sukses",
+        "timestamp": "19/03/2025 14:14",
+        "transaction_id": "4d1842ac-6fc1-4eee-a04d-19757d567123"
+    },
+    {
+        "type": "Makanan",
+        "items": [
+            {
+                "name": {
+                    "id": "F4",
+                    "name": "Popcorn Caramel",
+                    "price": 40000,
+                    "category": "Makanan",
+                    "image": "popcorn_caramel.jpg"
+                },
+                "quantity": 3,
+                "price": 0
+            }
+        ],
+        "total": -120000,
+        "status": "Sukses",
+        "timestamp": "19/03/2025 14:13",
+        "transaction_id": "ca68b92d-4c31-4707-afe5-09135cb97742"
+    },
+    {
+        "type": "Makanan",
+        "items": [
+            {
+                "name": {
+                    "id": "F4",
+                    "name": "Popcorn Caramel",
+                    "price": 40000,
+                    "category": "Makanan",
+                    "image": "popcorn_caramel.jpg"
+                },
+                "quantity": 3,
+                "price": 0
+            }
+        ],
+        "total": -120000,
+        "status": "Sukses",
+        "timestamp": "19/03/2025 14:13",
+        "transaction_id": "7092d79a-31d7-4b60-b936-0c34a094cb62"
+    },
+    {
+        "type": "Top Up",
+        "total": 500000,
+        "previous_balance": 0,
+        "new_balance": 500000,
+        "payment_method": "Cash",
+        "status": "Sukses",
+        "timestamp": "19/03/2025 14:13",
+        "transaction_id": "a8047b4c-71a8-4ce6-9691-495a4db1b250"
+    }
+]

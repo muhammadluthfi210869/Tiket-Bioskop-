@@ -1,0 +1,66 @@
+[
+    {
+        "type": "Tiket",
+        "movie_title": "Spider-Man: No Way Home",
+        "total": -65000,
+        "studio": "Regular",
+        "theater": "Theater 1",
+        "cinema": "CGV Grand Indonesia",
+        "seats": "J5",
+        "show_date": "13:00",
+        "show_time": "10:00",
+        "status": "Sukses",
+        "timestamp": "24/03/2025 08:57",
+        "transaction_id": "70c8ed06-3af1-4d1e-8660-d797638559e0"
+    },
+    {
+        "type": "Makanan",
+        "items": [
+            {
+                "name": {
+                    "id": "F2",
+                    "name": "Popcorn (M)",
+                    "price": 35000,
+                    "category": "Makanan",
+                    "image": "popcorn_medium.jpg"
+                },
+                "quantity": 1,
+                "price": 0
+            }
+        ],
+        "total": -35000,
+        "status": "Sukses",
+        "transaction_id": "5b2e234b-41c1-4f97-9f1d-1722739828df",
+        "timestamp": "24/03/2025 08:56"
+    },
+    {
+        "type": "Makanan",
+        "items": [
+            {
+                "name": {
+                    "id": "F2",
+                    "name": "Popcorn (M)",
+                    "price": 35000,
+                    "category": "Makanan",
+                    "image": "popcorn_medium.jpg"
+                },
+                "quantity": 1,
+                "price": 0
+            }
+        ],
+        "total": -35000,
+        "status": "Sukses",
+        "transaction_id": "07fd978e-9adc-44a2-8d28-ff57f3d56141",
+        "timestamp": "24/03/2025 08:56"
+    },
+    {
+        "type": "Top Up",
+        "total": 500000,
+        "previous_balance": 0,
+        "new_balance": 500000,
+        "payment_method": "Cash",
+        "status": "Sukses",
+        "timestamp": "24/03/2025 08:56",
+        "transaction_id": "bdf802fd-c896-4183-befc-9be6ea6aa113"
+    }
+]

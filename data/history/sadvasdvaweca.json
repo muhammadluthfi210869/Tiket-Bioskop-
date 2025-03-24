@@ -1,0 +1,24 @@
+[
+    {
+        "type": "Top Up",
+        "total": 500000,
+        "previous_balance": 500000,
+        "new_balance": 1000000,
+        "payment_method": "Cash",
+        "status": "Sukses",
+        "timestamp": "19/03/2025 12:48"
+    },
+    {
+        "type": "Tiket",
+        "movie_title": "Sample Test Movie",
+        "total": -75000,
+        "studio": "Regular",
+        "theater": "Theater 1",
+        "cinema": "CinemaTIX Plaza",
+        "seats": "A1, A2",
+        "show_date": "19/03/2025",
+        "show_time": "17:30",
+        "status": "Sukses",
+        "timestamp": "19/03/2025 12:48"
+    }
+]

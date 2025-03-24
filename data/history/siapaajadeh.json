@@ -1,0 +1,341 @@
+[
+    {
+        "type": "Tiket",
+        "movie_title": "Sample Test Movie",
+        "total": -75000,
+        "studio": "Regular",
+        "theater": "Theater 1",
+        "cinema": "CinemaTIX Plaza",
+        "seats": "A1, A2",
+        "show_date": "19/03/2025",
+        "show_time": "17:30",
+        "status": "Sukses",
+        "timestamp": "19/03/2025 12:06"
+    },
+    {
+        "type": "Makanan",
+        "items": [
+            {
+                "name": {
+                    "id": "F2",
+                    "name": "Popcorn (M)",
+                    "price": 35000,
+                    "category": "Makanan",
+                    "image": "popcorn_medium.jpg"
+                },
+                "quantity": 1,
+                "price": 0
+            },
+            {
+                "name": {
+                    "id": "F4",
+                    "name": "Popcorn Caramel",
+                    "price": 40000,
+                    "category": "Makanan",
+                    "image": "popcorn_caramel.jpg"
+                },
+                "quantity": 1,
+                "price": 0
+            }
+        ],
+        "total": -75000,
+        "status": "Sukses",
+        "timestamp": "19/03/2025 12:05"
+    },
+    {
+        "type": "Makanan",
+        "items": [
+            {
+                "name": {
+                    "id": "F2",
+                    "name": "Popcorn (M)",
+                    "price": 35000,
+                    "category": "Makanan",
+                    "image": "popcorn_medium.jpg"
+                },
+                "quantity": 1,
+                "price": 0
+            },
+            {
+                "name": {
+                    "id": "F4",
+                    "name": "Popcorn Caramel",
+                    "price": 40000,
+                    "category": "Makanan",
+                    "image": "popcorn_caramel.jpg"
+                },
+                "quantity": 1,
+                "price": 0
+            }
+        ],
+        "total": -75000,
+        "status": "Sukses",
+        "timestamp": "19/03/2025 12:05"
+    },
+    {
+        "type": "Top Up",
+        "total": 2975000,
+        "previous_balance": 2975000,
+        "new_balance": 5950000,
+        "payment_method": "Cash",
+        "status": "Sukses",
+        "timestamp": "19/03/2025 12:05"
+    },
+    {
+        "type": "Tiket",
+        "movie_title": "Sample Test Movie",
+        "total": -75000,
+        "studio": "Regular",
+        "theater": "Theater 1",
+        "cinema": "CinemaTIX Plaza",
+        "seats": "A1, A2",
+        "show_date": "19/03/2025",
+        "show_time": "17:30",
+        "status": "Sukses",
+        "timestamp": "19/03/2025 12:05"
+    },
+    {
+        "type": "Top Up",
+        "total": 2850000,
+        "previous_balance": 2850000,
+        "new_balance": 5700000,
+        "payment_method": "Cash",
+        "status": "Sukses",
+        "timestamp": "19/03/2025 11:50"
+    },
+    {
+        "type": "Tiket",
+        "movie_title": "Sample Test Movie",
+        "total": -75000,
+        "studio": "Regular",
+        "theater": "Theater 1",
+        "cinema": "CinemaTIX Plaza",
+        "seats": "A1, A2",
+        "show_date": "19/03/2025",
+        "show_time": "17:30",
+        "status": "Sukses",
+        "timestamp": "19/03/2025 11:50"
+    },
+    {
+        "type": "Tiket",
+        "movie_title": "Sample Test Movie",
+        "total": -75000,
+        "studio": "Regular",
+        "theater": "Theater 1",
+        "cinema": "CinemaTIX Plaza",
+        "seats": "A1, A2",
+        "show_date": "19/03/2025",
+        "show_time": "17:30",
+        "status": "Sukses",
+        "timestamp": "19/03/2025 11:48"
+    },
+    {
+        "type": "Top Up",
+        "total": 2150000,
+        "status": "Sukses",
+        "timestamp": "19/03/2025 11:44"
+    },
+    {
+        "type": "Tiket",
+        "movie_title": "Sample Test Movie",
+        "total": -75000,
+        "studio": "Regular",
+        "theater": "Theater 1",
+        "cinema": "CinemaTIX Plaza",
+        "seats": "A1, A2",
+        "show_date": "19/03/2025",
+        "show_time": "17:30",
+        "status": "Sukses",
+        "timestamp": "19/03/2025 11:43"
+    },
+    {
+        "type": "Top Up",
+        "total": 2080000,
+        "status": "Sukses",
+        "timestamp": "19/03/2025 11:37"
+    },
+    {
+        "type": "Top Up",
+        "total": 1880000,
+        "status": "Sukses",
+        "timestamp": "19/03/2025 11:34"
+    },
+    {
+        "type": "Top Up",
+        "total": 1380000,
+        "status": "Sukses",
+        "timestamp": "19/03/2025 11:31"
+    },
+    {
+        "type": "Makanan",
+        "items": [
+            {
+                "name": {
+                    "id": "F1",
+                    "name": "Popcorn (S)",
+                    "price": 25000,
+                    "category": "Makanan",
+                    "image": "popcorn_mini.jpg"
+                },
+                "quantity": 1,
+                "price": 0
+            },
+            {
+                "name": {
+                    "id": "F2",
+                    "name": "Popcorn (M)",
+                    "price": 35000,
+                    "category": "Makanan",
+                    "image": "popcorn_medium.jpg"
+                },
+                "quantity": 1,
+                "price": 0
+            }
+        ],
+        "total": -60000,
+        "status": "Sukses",
+        "timestamp": "19/03/2025 10:27"
+    },
+    {
+        "type": "Makanan",
+        "items": [
+            {
+                "name": {
+                    "id": "F2",
+                    "name": "Popcorn (M)",
+                    "price": 35000,
+                    "category": "Makanan",
+                    "image": "popcorn_medium.jpg"
+                },
+                "quantity": 1,
+                "price": 0
+            },
+            {
+                "name": {
+                    "id": "F1",
+                    "name": "Popcorn (S)",
+                    "price": 25000,
+                    "category": "Makanan",
+                    "image": "popcorn_mini.jpg"
+                },
+                "quantity": 1,
+                "price": 0
+            }
+        ],
+        "total": -60000,
+        "status": "Sukses",
+        "timestamp": "19/03/2025 10:21"
+    },
+    {
+        "type": "Makanan",
+        "items": [
+            {
+                "name": {
+                    "id": "F4",
+                    "name": "Popcorn Caramel",
+                    "price": 40000,
+                    "category": "Makanan",
+                    "image": "popcorn_caramel.jpg"
+                },
+                "quantity": 1,
+                "price": 0
+            },
+            {
+                "name": {
+                    "id": "F2",
+                    "name": "Popcorn (M)",
+                    "price": 35000,
+                    "category": "Makanan",
+                    "image": "popcorn_medium.jpg"
+                },
+                "quantity": 1,
+                "price": 0
+            }
+        ],
+        "total": -75000,
+        "status": "Sukses",
+        "timestamp": "19/03/2025 10:19"
+    },
+    {
+        "type": "Top Up",
+        "total": 1755000,
+        "status": "Sukses",
+        "timestamp": "19/03/2025 10:19"
+    },
+    {
+        "type": "Makanan",
+        "items": [
+            {
+                "name": {
+                    "id": "F1",
+                    "name": "Popcorn (S)",
+                    "price": 25000,
+                    "category": "Makanan",
+                    "image": "popcorn_mini.jpg"
+                },
+                "quantity": 1,
+                "price": 0
+            },
+            {
+                "name": {
+                    "id": "F2",
+                    "name": "Popcorn (M)",
+                    "price": 35000,
+                    "category": "Makanan",
+                    "image": "popcorn_medium.jpg"
+                },
+                "quantity": 1,
+                "price": 0
+            }
+        ],
+        "total": -60000,
+        "status": "Sukses",
+        "date": "2025-03-18 11:32",
+        "timestamp": "2025-03-18 11:32"
+    },
+    {
+        "type": "Top Up",
+        "total": 1615000,
+        "status": "Sukses",
+        "date": "2025-03-18 11:30",
+        "timestamp": "2025-03-18 11:30"
+    },
+    {
+        "type": "Makanan",
+        "items": [
+            {
+                "name": {
+                    "id": "F4",
+                    "name": "Popcorn Caramel",
+                    "price": 40000,
+                    "category": "Makanan",
+                    "image": "popcorn_caramel.jpg"
+                },
+                "quantity": 1,
+                "price": 40000
+            },
+            {
+                "name": {
+                    "id": "F2",
+                    "name": "Popcorn (M)",
+                    "price": 35000,
+                    "category": "Makanan",
+                    "image": "popcorn_medium.jpg"
+                },
+                "quantity": 1,
+                "price": 35000
+            }
+        ],
+        "total": -75000,
+        "status": "Sukses",
+        "date": "2025-03-18 11:29",
+        "timestamp": "2025-03-18 11:29"
+    },
+    {
+        "type": "Top Up",
+        "total": 1640000,
+        "status": "Sukses",
+        "date": "2025-03-18 11:29",
+        "timestamp": "2025-03-18 11:29"
+    }
+]
