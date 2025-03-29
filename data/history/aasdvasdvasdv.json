@@ -1,0 +1,227 @@
+[
+    {
+        "type": "Makanan",
+        "items": [
+            {
+                "name": {
+                    "id": "F5",
+                    "name": "Popcorn Cheese",
+                    "price": 40000,
+                    "category": "Makanan",
+                    "image": "Popcorn_cheese.jpg"
+                },
+                "quantity": 1,
+                "price": 0
+            }
+        ],
+        "total": 0,
+        "status": "Sukses",
+        "transaction_id": "41342b0f-5203-4cdf-a16c-0c6751416df3",
+        "timestamp": "29/03/2025 11:28"
+    },
+    {
+        "type": "Makanan",
+        "items": [
+            {
+                "name": {
+                    "id": "F1",
+                    "name": "Popcorn (S)",
+                    "price": 25000,
+                    "category": "Makanan",
+                    "image": "popcorn_mini.jpg"
+                },
+                "quantity": 1,
+                "price": 0
+            },
+            {
+                "name": {
+                    "id": "F2",
+                    "name": "Popcorn (M)",
+                    "price": 35000,
+                    "category": "Makanan",
+                    "image": "popcorn_medium.jpg"
+                },
+                "quantity": 1,
+                "price": 0
+            }
+        ],
+        "total": -60000,
+        "status": "Sukses",
+        "transaction_id": "81410e33-3f36-4429-9821-de301af06a46",
+        "timestamp": "29/03/2025 11:28"
+    },
+    {
+        "type": "Makanan",
+        "items": [
+            {
+                "name": {
+                    "id": "F4",
+                    "name": "Popcorn Caramel",
+                    "price": 40000,
+                    "category": "Makanan",
+                    "image": "popcorn_caramel.jpg"
+                },
+                "quantity": 1,
+                "price": 0
+            }
+        ],
+        "total": -40000,
+        "status": "Sukses",
+        "transaction_id": "c5116b29-ff6d-4c08-91e2-1c3d09ab7936",
+        "timestamp": "29/03/2025 11:28"
+    },
+    {
+        "type": "Makanan",
+        "items": [
+            {
+                "name": {
+                    "id": "F7",
+                    "name": "Hotdog",
+                    "price": 30000,
+                    "category": "Makanan",
+                    "image": "hotdog.jpeg"
+                },
+                "quantity": 1,
+                "price": 0
+            }
+        ],
+        "total": -30000,
+        "status": "Sukses",
+        "transaction_id": "a1658c5e-aa2a-48e7-97b2-e1747187d850",
+        "timestamp": "29/03/2025 11:27"
+    },
+    {
+        "type": "Makanan",
+        "items": [
+            {
+                "name": {
+                    "id": "F2",
+                    "name": "Popcorn (M)",
+                    "price": 35000,
+                    "category": "Makanan",
+                    "image": "popcorn_medium.jpg"
+                },
+                "quantity": 1,
+                "price": 0
+            }
+        ],
+        "total": -35000,
+        "status": "Sukses",
+        "transaction_id": "3e40bdf6-efb6-42e8-b80f-0a6c82214977",
+        "timestamp": "29/03/2025 11:27"
+    },
+    {
+        "type": "Tiket",
+        "movie_title": "Spider-Man: No Way Home",
+        "total": -65000,
+        "studio": "Regular",
+        "theater": "Theater 1",
+        "cinema": "CGV Grand Indonesia",
+        "seats": "G6",
+        "show_date": "13:00",
+        "show_time": "10:00",
+        "status": "Sukses",
+        "timestamp": "29/03/2025 11:27",
+        "transaction_id": "20554f4d-d2e0-43c6-be82-9695627455c6"
+    },
+    {
+        "type": "Top Up",
+        "total": 655000,
+        "previous_balance": 345000,
+        "new_balance": 1000000,
+        "payment_method": "Bank BCA",
+        "status": "Sukses",
+        "timestamp": "29/03/2025 11:26",
+        "transaction_id": "b25c6f5d-f7f6-484f-b34c-d7ac7147580c"
+    },
+    {
+        "type": "Makanan",
+        "items": [
+            {
+                "name": {
+                    "id": "F2",
+                    "name": "Popcorn (M)",
+                    "price": 35000,
+                    "category": "Makanan",
+                    "image": "popcorn_medium.jpg"
+                },
+                "quantity": 1,
+                "price": 0
+            }
+        ],
+        "total": -35000,
+        "status": "Sukses",
+        "transaction_id": "4bb7ec55-c47a-4cb6-932d-299790296095",
+        "timestamp": "29/03/2025 11:16"
+    },
+    {
+        "type": "Makanan",
+        "items": [
+            {
+                "name": {
+                    "id": "F4",
+                    "name": "Popcorn Caramel",
+                    "price": 40000,
+                    "category": "Makanan",
+                    "image": "popcorn_caramel.jpg"
+                },
+                "quantity": 1,
+                "price": 0
+            }
+        ],
+        "total": -40000,
+        "status": "Sukses",
+        "transaction_id": "f88bea08-927c-4b93-9b6f-9b68f17cbee7",
+        "timestamp": "29/03/2025 11:16"
+    },
+    {
+        "type": "Makanan",
+        "items": [
+            {
+                "name": {
+                    "id": "F4",
+                    "name": "Popcorn Caramel",
+                    "price": 40000,
+                    "category": "Makanan",
+                    "image": "popcorn_caramel.jpg"
+                },
+                "quantity": 2,
+                "price": 0
+            }
+        ],
+        "total": -80000,
+        "status": "Sukses",
+        "transaction_id": "8c37b6e7-2d18-4ac4-a2f8-9c2415c5ccd5",
+        "timestamp": "29/03/2025 11:13"
+    },
+    {
+        "type": "Makanan",
+        "items": [
+            {
+                "name": {
+                    "id": "F4",
+                    "name": "Popcorn Caramel",
+                    "price": 40000,
+                    "category": "Makanan",
+                    "image": "popcorn_caramel.jpg"
+                },
+                "quantity": 2,
+                "price": 0
+            }
+        ],
+        "total": -80000,
+        "status": "Sukses",
+        "transaction_id": "717bc741-91ee-4963-aa91-28fc44ad1005",
+        "timestamp": "29/03/2025 11:13"
+    },
+    {
+        "type": "Top Up",
+        "total": 500000,
+        "previous_balance": 0,
+        "new_balance": 500000,
+        "payment_method": "Cash",
+        "status": "Sukses",
+        "timestamp": "29/03/2025 11:13",
+        "transaction_id": "9eee6ac1-8efa-4f7c-ad3c-75670db3551a"
+    }
+]

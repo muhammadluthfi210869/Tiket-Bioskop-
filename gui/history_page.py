@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel, 
                           QPushButton, QFrame, QScrollArea, QLineEdit,
                           QComboBox, QStackedWidget, QSizePolicy, QGraphicsDropShadowEffect)
-from PyQt5.QtGui import QFont, QIcon, QColor, QPainter, QPixmap
+from PyQt5.QtGui import QFont, QIcon, QColor, QPainter, QPixmap, QBrush, QPen
 from PyQt5.QtCore import Qt, pyqtSignal, QSize, QDateTime
 import json
 import os
@@ -68,13 +68,24 @@ class TransactionCard(QFrame):
         
     def find_food_icon(self, food_name):
         """Mencari icon makanan berdasarkan nama"""
+        if not food_name:
+            return os.path.join('assets', 'icons', 'food', 'food_default.png')
+            
+        food_name = food_name.lower()
+        print(f"Looking for icon for food: '{food_name}'")
+        
         icons_folder = os.path.join('assets', 'icons', 'food')
         if not os.path.exists(icons_folder):
-            icons_folder = os.path.join('assets', 'icons')
+            os.makedirs(icons_folder, exist_ok=True)
             
         # Mapping nama makanan ke icon
         food_icons = {
             'popcorn': 'popcorn.png',
+            'cheese': 'popcorn.png',  # Popcorn with cheese is still popcorn
+            'caramel': 'popcorn.png', # Popcorn with caramel is still popcorn
+            's': 'popcorn.png',       # Popcorn (S) small
+            'm': 'popcorn.png',       # Popcorn (M) medium
+            'l': 'popcorn.png',       # Popcorn (L) large
             'soda': 'soda.png',
             'cola': 'soda.png',
             'air': 'water.png',
@@ -89,13 +100,24 @@ class TransactionCard(QFrame):
             'es krim': 'ice_cream.png'
         }
         
-        # Cari icon yang sesuai
+        # First check for direct matches
+        for key, icon_name in food_icons.items():
+            if key == food_name:
+                icon_path = os.path.join(icons_folder, icon_name)
+                print(f"Found exact match: {icon_path}")
+                return icon_path
+        
+        # Then check for partial matches within the food name
         for key, icon_name in food_icons.items():
             if key in food_name:
-                return os.path.join(icons_folder, icon_name)
-                
-        # Default food icon jika tidak ditemukan yang spesifik
-        return os.path.join(icons_folder, 'food_default.png')
+                icon_path = os.path.join(icons_folder, icon_name)
+                print(f"Found partial match ({key}): {icon_path}")
+                return icon_path
+        
+        # Default food icon if no match found
+        default_path = os.path.join(icons_folder, 'food_default.png')
+        print(f"No match found, using default: {default_path}")
+        return default_path
 
     def init_ui(self):
         """Inisialisasi antarmuka kartu transaksi"""
@@ -119,7 +141,7 @@ class TransactionCard(QFrame):
         
         # Icon/Poster container (kiri)
         if self.transaction_data.get("type") == "Tiket":
-            # Poster untuk tiket
+            # Poster untuk tiket - rectangular container
             poster_container = QFrame()
             poster_container.setFixedSize(60, 90)
             poster_container.setStyleSheet("""
@@ -146,29 +168,117 @@ class TransactionCard(QFrame):
             main_layout.addWidget(poster_container)
             
         elif self.transaction_data.get("type") == "Makanan":
-            # Stacked icons untuk makanan
+            # Improved circular food icon
             items = self.transaction_data.get("items", [])
-            food_container = self.create_stacked_food_icons(items)
-            if food_container:
+            if items:
+                # Get the first food item for the icon
+                item = items[0]
+                item_name = ""
+                
+                print(f"Food item: {item}")
+                
+                if isinstance(item, dict):
+                    if "name" in item and isinstance(item["name"], dict):
+                        item_name = item["name"].get("name", "")
+                        print(f"Found complex item name: {item_name}")
+                    else:
+                        item_name = item.get("name", "")
+                        print(f"Found simple item name: {item_name}")
+                elif isinstance(item, str):
+                    item_name = item
+                    print(f"Found string item name: {item_name}")
+                
+                # Create circular food icon container
+                food_container = QFrame()
+                food_container.setFixedSize(60, 60)
+                food_container.setStyleSheet("""
+                    background-color: #252525;
+                    border-radius: 30px;
+                    border: 1px solid #333333;
+                """)
+                
+                food_layout = QVBoxLayout(food_container)
+                food_layout.setContentsMargins(10, 10, 10, 10)
+                food_layout.setAlignment(Qt.AlignCenter)
+                
+                food_icon = QLabel()
+                food_icon.setFixedSize(40, 40)
+                food_icon.setAlignment(Qt.AlignCenter)
+                food_icon.setStyleSheet("background: transparent; border: none;")
+                
+                # Find appropriate food icon
+                icon_path = self.find_food_icon(item_name)
+                print(f"Icon path for {item_name}: {icon_path}")
+                
+                if icon_path and os.path.exists(icon_path):
+                    pixmap = QPixmap(icon_path)
+                    food_icon.setPixmap(pixmap.scaled(40, 40, Qt.KeepAspectRatio, Qt.SmoothTransformation))
+                    print(f"Set pixmap from {icon_path}")
+                else:
+                    print(f"Icon path not found: {icon_path}")
+                    # Create a text label as fallback
+                    if item_name:
+                        first_letter = item_name[0].upper() if item_name else "F"
+                        food_icon.setText(first_letter)
+                        food_icon.setStyleSheet("""
+                            background-color: #FFD700;
+                            color: #000000;
+                            border-radius: 20px;
+                            font-size: 20px;
+                            font-weight: bold;
+                            text-align: center;
+                        """)
+                
+                food_layout.addWidget(food_icon)
                 main_layout.addWidget(food_container)
+            else:
+                # Fallback if no items
+                default_container = QFrame()
+                default_container.setFixedSize(60, 60)
+                default_container.setStyleSheet("""
+                    background-color: #252525;
+                    border-radius: 30px;
+                """)
+                main_layout.addWidget(default_container)
+        
+        else:  # Top Up - show specific bank icon
+            # Get payment method from transaction data
+            payment_method = self.transaction_data.get("payment_method", "").lower()
             
-        else:  # Top Up
-            # Icon container untuk top up
+            # Create circular bank icon container
             icon_container = QFrame()
-            icon_container.setFixedSize(40, 40)
+            icon_container.setFixedSize(60, 60)
             icon_container.setStyleSheet("""
                 background-color: #252525;
-                border-radius: 20px;
+                border-radius: 30px;
             """)
             
             icon_layout = QVBoxLayout(icon_container)
-            icon_layout.setContentsMargins(8, 8, 8, 8)
+            icon_layout.setContentsMargins(10, 10, 10, 10)
+            icon_layout.setAlignment(Qt.AlignCenter)
             
             icon_label = QLabel()
-            icon_path = os.path.join("assets", "icons", "bank.png")  # Ganti dengan icon bank
-            if os.path.exists(icon_path):
-                icon_pixmap = QPixmap(icon_path)
-                icon_label.setPixmap(icon_pixmap.scaled(24, 24, Qt.KeepAspectRatio, Qt.SmoothTransformation))
+            icon_label.setFixedSize(40, 40)
+            icon_label.setAlignment(Qt.AlignCenter)
+            
+            # Choose bank icon based on payment method
+            bank_icon_path = None
+            if "bca" in payment_method:
+                bank_icon_path = os.path.join("assets", "icons", "banks", "bca.png")
+            elif "bni" in payment_method:
+                bank_icon_path = os.path.join("assets", "icons", "banks", "bni.png")
+            elif "mandiri" in payment_method:
+                bank_icon_path = os.path.join("assets", "icons", "banks", "mandiri.png")
+            elif "bri" in payment_method:
+                bank_icon_path = os.path.join("assets", "icons", "banks", "bri.png")
+            
+            # Fallback to generic bank icon if specific bank not found
+            if not bank_icon_path or not os.path.exists(bank_icon_path):
+                bank_icon_path = os.path.join("assets", "icons", "bank.png")
+            
+            if os.path.exists(bank_icon_path):
+                icon_pixmap = QPixmap(bank_icon_path)
+                icon_label.setPixmap(icon_pixmap.scaled(40, 40, Qt.KeepAspectRatio, Qt.SmoothTransformation))
             
             icon_layout.addWidget(icon_label)
             main_layout.addWidget(icon_container)
@@ -346,6 +456,8 @@ class HistoryPage(QWidget):
         self.user_data = user_data
         self.transactions = []
         self.init_ui()
+        self.ensure_bank_icons_directory()
+        self.ensure_food_icons_directory()
         self.load_history()
         
     def init_ui(self):
@@ -507,8 +619,8 @@ class HistoryPage(QWidget):
         # Check for duplicates using more specific criteria
         is_duplicate = False
         for existing_transaction in self.transactions:
+            # For tickets, check specific ticket details
             if transaction_data["type"] == "Tiket" and existing_transaction.get("type") == "Tiket":
-                # For tickets, check specific ticket details
                 if (existing_transaction.get("movie_title") == transaction_data.get("movie_title") and
                     existing_transaction.get("show_date") == transaction_data.get("show_date") and
                     existing_transaction.get("show_time") == transaction_data.get("show_time") and
@@ -516,8 +628,20 @@ class HistoryPage(QWidget):
                     existing_transaction.get("timestamp") == transaction_data.get("timestamp")):
                     is_duplicate = True
                     break
+            # For food orders, check more than just transaction_id
+            elif transaction_data["type"] == "Makanan" and existing_transaction.get("type") == "Makanan":
+                # Check timestamp - if it's the same timestamp, it's likely a duplicate
+                if existing_transaction.get("timestamp") == transaction_data.get("timestamp"):
+                    # Also check total to be extra sure
+                    if existing_transaction.get("total") == transaction_data.get("total"):
+                        is_duplicate = True
+                        break
+                # Also check transaction_id if it exists
+                elif transaction_data.get("transaction_id") and transaction_data["transaction_id"] == existing_transaction.get("transaction_id"):
+                    is_duplicate = True
+                    break
+            # For other transactions, use transaction_id if available
             elif transaction_data.get("transaction_id"):
-                # For other transactions, use transaction_id if available
                 if transaction_data["transaction_id"] == existing_transaction.get("transaction_id"):
                     is_duplicate = True
                     break
@@ -530,6 +654,9 @@ class HistoryPage(QWidget):
             self.save_history()
             # Refresh display
             self.filter_transactions()
+            print(f"Added new transaction of type: {transaction_data.get('type')}")
+        else:
+            print(f"Skipped duplicate transaction of type: {transaction_data.get('type')}")
     
     def load_history(self):
         """Muat data riwayat dari penyimpanan"""
@@ -695,4 +822,121 @@ class HistoryPage(QWidget):
     def update_user_data(self, user_data):
         """Update data user dan muat ulang riwayat"""
         self.user_data = user_data
-        self.load_history() 
+        self.load_history()
+    
+    def ensure_bank_icons_directory(self):
+        """Memastikan direktori untuk ikon bank tersedia"""
+        banks_dir = os.path.join("assets", "icons", "banks")
+        if not os.path.exists(banks_dir):
+            try:
+                os.makedirs(banks_dir, exist_ok=True)
+                print(f"Created banks directory at: {banks_dir}")
+            except Exception as e:
+                print(f"Error creating banks directory: {e}")
+                
+        # Create generic bank icons if they don't exist
+        sample_banks = {
+            "bca.png": (0, 106, 206),  # Blue
+            "bni.png": (255, 91, 0),   # Orange
+            "mandiri.png": (0, 120, 160),  # Blue-green
+            "bri.png": (0, 149, 218)   # Light blue
+        }
+        
+        for bank_file, color in sample_banks.items():
+            bank_path = os.path.join(banks_dir, bank_file)
+            if not os.path.exists(bank_path):
+                self.create_generic_bank_icon(bank_path, color)
+
+    def create_generic_bank_icon(self, path, color):
+        """Membuat ikon bank generik dengan inisial bank"""
+        try:
+            # Create a 100x100 transparent pixmap
+            pixmap = QPixmap(100, 100)
+            pixmap.fill(Qt.transparent)
+            
+            # Create painter
+            painter = QPainter(pixmap)
+            painter.setRenderHint(QPainter.Antialiasing)
+            
+            # Draw circular background
+            painter.setBrush(QBrush(QColor(*color)))
+            painter.setPen(Qt.NoPen)
+            painter.drawEllipse(0, 0, 100, 100)
+            
+            # Draw bank name
+            bank_name = os.path.basename(path).split('.')[0].upper()
+            painter.setPen(QPen(QColor(255, 255, 255)))
+            font = QFont("Arial", 36, QFont.Bold)
+            painter.setFont(font)
+            painter.drawText(pixmap.rect(), Qt.AlignCenter, bank_name)
+            
+            painter.end()
+            
+            # Save the pixmap
+            pixmap.save(path)
+            print(f"Created generic bank icon at: {path}")
+        except Exception as e:
+            print(f"Error creating generic bank icon: {e}")
+            import traceback
+            traceback.print_exc()
+
+    def ensure_food_icons_directory(self):
+        """Memastikan direktori untuk ikon makanan tersedia"""
+        food_dir = os.path.join("assets", "icons", "food")
+        if not os.path.exists(food_dir):
+            try:
+                os.makedirs(food_dir, exist_ok=True)
+                print(f"Created food icons directory at: {food_dir}")
+            except Exception as e:
+                print(f"Error creating food icons directory: {e}")
+                
+        # Create generic food icons if they don't exist
+        sample_foods = {
+            "popcorn.png": (255, 204, 0),  # Yellow for popcorn
+            "soda.png": (180, 0, 0),       # Red for soda/drinks
+            "hotdog.png": (180, 90, 0),    # Brown for hotdog
+            "nachos.png": (230, 180, 0),   # Orange for nachos
+            "burger.png": (130, 70, 0),    # Brown for burger
+            "fries.png": (230, 180, 0),    # Golden for fries
+            "water.png": (0, 140, 200),    # Blue for water
+            "ice_cream.png": (240, 240, 240),  # White for ice cream
+            "food_default.png": (100, 180, 100)  # Green for default
+        }
+        
+        for food_file, color in sample_foods.items():
+            food_path = os.path.join(food_dir, food_file)
+            if not os.path.exists(food_path):
+                self.create_generic_food_icon(food_path, color)
+
+    def create_generic_food_icon(self, path, color):
+        """Membuat ikon makanan generik"""
+        try:
+            # Create a 100x100 transparent pixmap
+            pixmap = QPixmap(100, 100)
+            pixmap.fill(Qt.transparent)
+            
+            # Create painter
+            painter = QPainter(pixmap)
+            painter.setRenderHint(QPainter.Antialiasing)
+            
+            # Draw circular background
+            painter.setBrush(QBrush(QColor(*color)))
+            painter.setPen(Qt.NoPen)
+            painter.drawEllipse(0, 0, 100, 100)
+            
+            # Draw food name
+            food_name = os.path.basename(path).split('.')[0].upper()
+            painter.setPen(QPen(QColor(255, 255, 255)))
+            font = QFont("Arial", 14, QFont.Bold)
+            painter.setFont(font)
+            painter.drawText(pixmap.rect(), Qt.AlignCenter, food_name)
+            
+            painter.end()
+            
+            # Save the pixmap
+            pixmap.save(path)
+            print(f"Created generic food icon at: {path}")
+        except Exception as e:
+            print(f"Error creating generic food icon: {e}")
+            import traceback
+            traceback.print_exc() 

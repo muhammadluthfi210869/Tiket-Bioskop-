@@ -744,6 +744,8 @@ class DashboardWindow(QMainWindow):
             for movie in recommended_movies[:3]:
                 movie_card = MovieCard(movie)
                 movie_card.clicked.connect(self.on_recommended_movie_clicked)
+                # Remove the hover animation effect for dashboard cards
+                movie_card._animations.clear()  # Clear all animations
                 rec_grid.addWidget(movie_card)
         else:
             rec_placeholder = QLabel(f"Tidak ada film {self.user_data['genre_favorit']} yang tersedia saat ini.")
@@ -794,8 +796,6 @@ class DashboardWindow(QMainWindow):
         self.stack_widget.addWidget(self.movies_page)
         
         self.food_page = FoodPage(self.user_data)
-        self.food_page.order_completed.connect(self.update_saldo_display)
-        self.food_page.order_completed.connect(self.handle_food_order)
         self.stack_widget.addWidget(self.food_page)
         
         self.topup_page = TopUpPage(self.user_data)
@@ -896,9 +896,168 @@ class DashboardWindow(QMainWindow):
     def get_recommended_movies(self):
         """Mendapatkan film rekomendasi berdasarkan genre favorit pengguna"""
         fav_genre = self.user_data.get('genre_favorit', '').lower()
-        all_movies = MovieModel.get_all_movies()
         
+        # Normalize genre name to handle variations
+        normalized_genre = fav_genre.replace('-', '').replace(' ', '')
+        
+        # Manual recommendations based on genre
+        manual_recommendations = {
+            'action': [
+                {
+                    "title": "Avengers",
+                    "genre": "Action",
+                    "price": 70000,
+                    "synopsis": "Earth's mightiest heroes must come together to protect the world from Loki and his alien army.",
+                    "duration": 143,
+                    "director": "Joss Whedon",
+                    "cast": "Robert Downey Jr., Chris Evans, Scarlett Johansson",
+                    "schedule": "10:00, 13:00, 16:00, 19:00",
+                    "poster_path": find_poster_for_film("Avengers")
+                },
+                {
+                    "title": "Spiderman",
+                    "genre": "Action",
+                    "price": 65000,
+                    "synopsis": "After being bitten by a genetically-modified spider, a high school student gains spider-like abilities.",
+                    "duration": 121,
+                    "director": "Sam Raimi",
+                    "cast": "Tobey Maguire, Kirsten Dunst, Willem Dafoe",
+                    "schedule": "11:00, 14:00, 17:00, 20:00",
+                    "poster_path": find_poster_for_film("Spiderman")
+                },
+                {
+                    "title": "Batman",
+                    "genre": "Action",
+                    "price": 65000,
+                    "synopsis": "The Dark Knight fights crime in Gotham City with both physical prowess and detective skills.",
+                    "duration": 126,
+                    "director": "Christopher Nolan",
+                    "cast": "Christian Bale, Michael Caine, Gary Oldman",
+                    "schedule": "12:00, 15:00, 18:00, 21:00",
+                    "poster_path": find_poster_for_film("Batman")
+                }
+            ],
+            'biography': [
+                {
+                    "title": "Oppenheimer",
+                    "genre": "Biography",
+                    "price": 70000,
+                    "synopsis": "The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb.",
+                    "duration": 180,
+                    "director": "Christopher Nolan",
+                    "cast": "Cillian Murphy, Emily Blunt, Matt Damon",
+                    "schedule": "10:30, 14:30, 18:30",
+                    "poster_path": find_poster_for_film("Oppenheimer")
+                },
+                {
+                    "title": "Bohemian Rhapsody",
+                    "genre": "Biography",
+                    "price": 65000,
+                    "synopsis": "The story of the legendary British rock band Queen and lead singer Freddie Mercury.",
+                    "duration": 134,
+                    "director": "Bryan Singer",
+                    "cast": "Rami Malek, Lucy Boynton, Gwilym Lee",
+                    "schedule": "11:30, 15:30, 19:30",
+                    "poster_path": find_poster_for_film("Bohemian Rhapsody")
+                },
+                {
+                    "title": "The Theory of Everything",
+                    "genre": "Biography",
+                    "price": 65000,
+                    "synopsis": "A look at the relationship between the famous physicist Stephen Hawking and his wife.",
+                    "duration": 123,
+                    "director": "James Marsh",
+                    "cast": "Eddie Redmayne, Felicity Jones",
+                    "schedule": "12:30, 16:30, 20:30",
+                    "poster_path": find_poster_for_film("The Theory of Everything")
+                }
+            ],
+            'drama': [
+                {
+                    "title": "Joker",
+                    "genre": "Drama",
+                    "price": 70000,
+                    "synopsis": "A failed comedian goes insane and turns to crime and chaos in Gotham City.",
+                    "duration": 122,
+                    "director": "Todd Phillips",
+                    "cast": "Joaquin Phoenix, Robert De Niro",
+                    "schedule": "13:00, 16:00, 19:00",
+                    "poster_path": find_poster_for_film("Joker")
+                },
+                {
+                    "title": "The Godfather",
+                    "genre": "Drama",
+                    "price": 65000,
+                    "synopsis": "The aging patriarch of an organized crime dynasty transfers control to his son.",
+                    "duration": 175,
+                    "director": "Francis Ford Coppola",
+                    "cast": "Marlon Brando, Al Pacino, James Caan",
+                    "schedule": "14:00, 18:00, 22:00",
+                    "poster_path": find_poster_for_film("The Godfather")
+                },
+                {
+                    "title": "Forrest Gump",
+                    "genre": "Drama",
+                    "price": 65000,
+                    "synopsis": "The history of the United States from the 1950s to the '70s unfolds from the perspective of an Alabama man with an IQ of 75.",
+                    "duration": 142,
+                    "director": "Robert Zemeckis",
+                    "cast": "Tom Hanks, Robin Wright, Gary Sinise",
+                    "schedule": "13:30, 17:30, 21:30",
+                    "poster_path": find_poster_for_film("Forrest Gump")
+                }
+            ],
+            'scifi': [
+                {
+                    "title": "Dune",
+                    "genre": "Sci-Fi",
+                    "price": 70000,
+                    "synopsis": "Feature adaptation of Frank Herbert's science fiction novel about the son of a noble family entrusted with the protection of the most valuable asset in the galaxy.",
+                    "duration": 155,
+                    "director": "Denis Villeneuve",
+                    "cast": "Timothée Chalamet, Rebecca Ferguson, Zendaya",
+                    "schedule": "12:00, 16:00, 20:00",
+                    "poster_path": find_poster_for_film("Dune")
+                },
+                {
+                    "title": "Inception",
+                    "genre": "Sci-Fi",
+                    "price": 65000,
+                    "synopsis": "A thief who steals corporate secrets through dream-sharing technology is given the task of planting an idea into the mind of a CEO.",
+                    "duration": 148,
+                    "director": "Christopher Nolan",
+                    "cast": "Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page",
+                    "schedule": "14:30, 18:30, 22:30",
+                    "poster_path": find_poster_for_film("Inception")
+                },
+                {
+                    "title": "The Matrix",
+                    "genre": "Sci-Fi",
+                    "price": 65000,
+                    "synopsis": "A computer hacker learns about the true nature of reality and his role in the war against its controllers.",
+                    "duration": 136,
+                    "director": "Lana Wachowski, Lilly Wachowski",
+                    "cast": "Keanu Reeves, Laurence Fishburne, Carrie-Anne Moss",
+                    "schedule": "15:00, 19:00, 23:00",
+                    "poster_path": find_poster_for_film("The Matrix")
+                }
+            ]
+        }
+        
+        # Return the appropriate recommendations for the user's favorite genre
+        # First check if we have manual recommendations for this genre
+        if normalized_genre in manual_recommendations:
+            return manual_recommendations[normalized_genre]
+            
+        # Check if a partial match can be found
+        for genre_key in manual_recommendations.keys():
+            if genre_key in normalized_genre or normalized_genre in genre_key:
+                return manual_recommendations[genre_key]
+            
+        # If not in our manual recommendations, fallback to database search
+        all_movies = MovieModel.get_all_movies()
         recommended = []
+        
         for movie in all_movies:
             movie_genres = movie.get('genre', '').lower()
             if fav_genre in movie_genres:
@@ -1083,20 +1242,40 @@ class DashboardWindow(QMainWindow):
                 # Generate a unique transaction ID
                 transaction_id = str(uuid.uuid4())
                 
+                # Get the payment method from topup_page if available
+                payment_method = "Cash"  # Default
+                if hasattr(self, 'topup_page') and hasattr(self.topup_page, 'selected_payment_method'):
+                    payment_method = self.topup_page.selected_payment_method
+                    
+                # Map payment IDs to readable bank names
+                payment_method_map = {
+                    "bca": "Bank BCA",
+                    "bni": "Bank BNI",
+                    "mandiri": "Bank Mandiri",
+                    "bri": "Bank BRI",
+                    "cash": "Cash",
+                    "gopay": "GoPay",
+                    "ovo": "OVO",
+                    "dana": "DANA"
+                }
+                
+                # Get readable payment method name
+                readable_payment = payment_method_map.get(payment_method.lower(), payment_method)
+                
                 # Prepare transaction data with explicit previous and new balance
                 transaction_data = {
                     "type": "Top Up",
                     "total": amount,
                     "previous_balance": previous_balance,
                     "new_balance": new_balance,
-                    "payment_method": "Cash",
+                    "payment_method": readable_payment,
                     "status": "Sukses",
                     "timestamp": timestamp,
                     "transaction_id": transaction_id
                 }
                 
                 # Add to history and refresh display
-                print(f"Adding top-up transaction to history: {amount}, ID: {transaction_id}")
+                print(f"Adding top-up transaction to history: {amount}, ID: {transaction_id}, Method: {readable_payment}")
                 self.history_page.add_transaction(transaction_data)
                 self.history_page.filter_transactions()
         except Exception as e:

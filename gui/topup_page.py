@@ -57,6 +57,7 @@ class TopUpPage(QWidget):
         super().__init__()
         self.user_data = user_data
         self.selected_bank = None
+        self.selected_payment_method = "Cash"  # Default payment method
         self.init_ui()
         
     def update_display_saldo(self, new_saldo):
@@ -255,12 +256,12 @@ class TopUpPage(QWidget):
         
         # Bank-bank yang tersedia
         bank_data = [
-            {"name": "BCA", "logo": "BCA-512.webp"},
-            {"name": "Mandiri", "logo": "mandiri.jpg"},
-            {"name": "BNI", "logo": "BNI.webp"},
-            {"name": "BRI", "logo": "BRI.png"},
-            {"name": "OVO", "logo": "ovo.jpg"},
-            {"name": "GoPay", "logo": "gopay.jpeg"}
+            {"name": "BCA", "logo": "BCA-512.webp", "id": "bca"},
+            {"name": "Mandiri", "logo": "mandiri.jpg", "id": "mandiri"},
+            {"name": "BNI", "logo": "BNI.webp", "id": "bni"},
+            {"name": "BRI", "logo": "BRI.png", "id": "bri"},
+            {"name": "OVO", "logo": "ovo.jpg", "id": "ovo"},
+            {"name": "GoPay", "logo": "gopay.jpeg", "id": "gopay"}
         ]
         
         # Grid untuk bank buttons
@@ -278,6 +279,7 @@ class TopUpPage(QWidget):
             icon_path = os.path.join("assets", "icons", "banks", bank["logo"])
             bank_button = BankButton(bank["name"], icon_path)
             bank_button.setProperty("bank_name", bank["name"])
+            bank_button.setProperty("bank_id", bank["id"])
             
             self.bank_button_group.addButton(bank_button, i)
             bank_grid.addWidget(bank_button, row, col)
@@ -295,6 +297,7 @@ class TopUpPage(QWidget):
         if self.bank_buttons:
             self.bank_buttons[0].setChecked(True)
             self.selected_bank = self.bank_buttons[0].bank_name
+            self.selected_payment_method = self.bank_buttons[0].property("bank_id")
         
         payment_layout.addLayout(bank_grid)
         main_layout.addWidget(payment_frame)
@@ -361,6 +364,13 @@ class TopUpPage(QWidget):
     def bank_button_clicked(self, button):
         """Handler ketika tombol bank diklik"""
         self.selected_bank = button.property("bank_name")
+        # Store both the bank ID (for lookup) and the readable name (for display)
+        bank_id = button.property("bank_id")
+        if bank_id:
+            self.selected_payment_method = bank_id
+            print(f"Selected payment method: {self.selected_payment_method}")
+        else:
+            self.selected_payment_method = "Cash"
     
     def nominal_button_clicked(self):
         """Handler ketika tombol nominal diklik"""

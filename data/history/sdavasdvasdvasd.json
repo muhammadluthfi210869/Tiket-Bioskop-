@@ -1,0 +1,52 @@
+[
+    {
+        "type": "Makanan",
+        "items": [
+            {
+                "name": {
+                    "id": "F7",
+                    "name": "Hotdog",
+                    "price": 30000,
+                    "category": "Makanan",
+                    "image": "hotdog.jpeg"
+                },
+                "quantity": 1,
+                "price": 0
+            }
+        ],
+        "total": 0,
+        "status": "Sukses",
+        "transaction_id": "543d25f5-a457-45eb-ab41-493b553bb3ad",
+        "timestamp": "29/03/2025 11:33"
+    },
+    {
+        "type": "Makanan",
+        "items": [
+            {
+                "name": {
+                    "id": "F2",
+                    "name": "Popcorn (M)",
+                    "price": 35000,
+                    "category": "Makanan",
+                    "image": "popcorn_medium.jpg"
+                },
+                "quantity": 1,
+                "price": 0
+            }
+        ],
+        "total": -35000,
+        "status": "Sukses",
+        "transaction_id": "48a95d6f-df90-467c-a458-a160428f41bd",
+        "timestamp": "29/03/2025 11:33"
+    },
+    {
+        "type": "Top Up",
+        "total": 500000,
+        "previous_balance": 0,
+        "new_balance": 500000,
+        "payment_method": "Bank BCA",
+        "status": "Sukses",
+        "timestamp": "29/03/2025 11:32",
+        "transaction_id": "fa3ade89-b715-4bf4-aaa2-a3a4c206f381"
+    }
+]

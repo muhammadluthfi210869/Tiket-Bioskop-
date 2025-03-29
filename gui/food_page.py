@@ -580,21 +580,28 @@ class FoodPage(QWidget):
         cart_scroll.setWidget(self.cart_widget)
         right_layout.addWidget(cart_scroll)
         
-        # Ringkasan pembelian
+        # Ringkasan keranjang
         summary_frame = QFrame()
         summary_frame.setFrameShape(QFrame.StyledPanel)
+        summary_frame.setObjectName("summary_frame")
         summary_frame.setStyleSheet("""
-            QFrame {
-                background-color: #252525;
+            #summary_frame {
+                background-color: #1A1A1A;
                 border-radius: 12px;
                 border: 1px solid #2A2A2A;
-                padding: 25px;
+                padding: 20px;
                 margin-top: 20px;
             }
         """)
         
         summary_layout = QVBoxLayout(summary_frame)
-        summary_layout.setSpacing(20)
+        summary_layout.setSpacing(15)
+        
+        # Judul ringkasan
+        summary_title = QLabel("Ringkasan Belanja")
+        summary_title.setFont(QFont("Poppins", 14, QFont.Bold))
+        summary_title.setStyleSheet("color: #FFFFFF; margin-bottom: 5px;")
+        summary_layout.addWidget(summary_title)
         
         # Total item
         total_item_layout = QHBoxLayout()
@@ -610,7 +617,7 @@ class FoodPage(QWidget):
         # Divider
         summary_divider = QFrame()
         summary_divider.setFrameShape(QFrame.HLine)
-        summary_divider.setStyleSheet("background-color: #2A2A2A;")
+        summary_divider.setStyleSheet("background-color: #2A2A2A; margin: 5px 0;")
         summary_layout.addWidget(summary_divider)
         
         # Total harga
@@ -618,8 +625,10 @@ class FoodPage(QWidget):
         total_price_label = QLabel("Total Harga")
         total_price_label.setStyleSheet("color: #B3B3B3; font-family: 'Poppins'; font-size: 14px;")
         self.total_price_value = QLabel("Rp 0")
-        self.total_price_value.setFont(QFont("Poppins", 18, QFont.Bold))
-        self.total_price_value.setStyleSheet("color: #FFD700;")
+        self.total_price_value.setFont(QFont("Poppins", 20, QFont.Bold))
+        self.total_price_value.setStyleSheet("color: #FFD700; margin-right: 5px;")
+        self.total_price_value.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
+        self.total_price_value.setMinimumWidth(120)  # Ensure enough space for the price
         total_price_layout.addWidget(total_price_label)
         total_price_layout.addStretch()
         total_price_layout.addWidget(self.total_price_value)
@@ -722,8 +731,15 @@ class FoodPage(QWidget):
         total_items = sum(quantity for _, quantity in self.cart_items.values())
         total_price = sum(item['price'] * quantity for (item, quantity) in self.cart_items.values())
         
+        # Update the total item count
         self.total_item_value.setText(str(total_items))
-        self.total_price_value.setText(f"Rp {total_price:,}".replace(',', '.'))
+        
+        # Format the price with thousand separators and ensure visibility
+        formatted_price = f"Rp {total_price:,}".replace(',', '.')
+        self.total_price_value.setText(formatted_price)
+        
+        # Add debug print to verify the price is correctly formatted
+        print(f"Updated cart total: {formatted_price}")
         
         # Aktifkan/nonaktifkan tombol checkout
         self.checkout_button.setEnabled(bool(self.cart_items))
